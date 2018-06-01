@@ -4,14 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-## [0.2.1] - 2018-05-31
+## [0.2.1] - 2018-06-01
 
 ### Changed
 
 * Fixed bug with trailing semicolon & whitespace
 * Updated package.json for npm purposes
 
-## [0.2.0] - 2018-05-31
+## [0.2.0] - 2018-06-01
 
 ### Added
 
