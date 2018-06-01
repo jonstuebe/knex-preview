@@ -1,13 +1,30 @@
 {
   "name": "knex-preview",
-  "version": "0.2.0",
+  "version": "0.2.1",
+  "description": "A small cli tool to output sql from knex migrations",
   "main": "index.js",
-  "author": "Jon Stuebe <jstuebe@gmail.com>",
+  "author": {
+    "name": "Jon Stuebe",
+    "web": "https://github.com/jonstuebe"
+  },
   "license": "MIT",
   "private": false,
+  "engines": {
+    "node": ">=7"
+  },
   "bin": {
     "knex-preview": "index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jonstuebe/knex-preview.git"
+  },
+  "keywords": [
+    "sql",
+    "knex",
+    "query",
+    "migrations"
+  ],
   "dependencies": {
     "bluebird": "^3.5.1",
     "chalk": "^2.4.1",

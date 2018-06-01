@@ -127,7 +127,7 @@ inquirer
 
       let sql = allQueries
         .map(query => {
-          let sql = query.toString();
+          let sql = query.trim();
           if (sql.substr(-1) !== ";") {
             sql += ";";
           }
