@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.2.6] - 2018-06-01
+
+### Added
+
+* Added the ability to type and get autocomplete options when selecting the migration you want to output.
+
 ## [0.2.5] - 2018-06-01
 
 ### Changed

@@ -20,6 +20,8 @@ yarn add --dev knex-preview
 npx knex-preview
 ```
 
+_note: after running, start typing to get autocomplete results of your migration names!_
+
 ## Help
 
 See `knex-preview --help` for more details.

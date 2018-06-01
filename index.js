@@ -56,18 +56,40 @@ knex.on("query", query => {
   }
 });
 
+const formatChoices = choices => {
+  return choices.map(choice => {
+    return {
+      name: choice,
+      value: choice
+    };
+  });
+};
+
+inquirer.registerPrompt(
+  "autocomplete",
+  require("inquirer-autocomplete-prompt")
+);
 inquirer
   .prompt([
     {
-      type: "list",
+      type: "autocomplete",
       name: "migrationSelected",
       message: "Please select the migration you would like to preview",
-      choices: migrations.map(migration => {
-        return {
-          name: migration,
-          value: migration
-        };
-      })
+      source: (answersSoFar, input) => {
+        return new Promise(resolve => {
+          if (input === ("" || null)) {
+            return resolve(formatChoices(migrations));
+          } else {
+            return resolve(
+              formatChoices(
+                migrations.filter(migration =>
+                  migration.includes(input.replace(/ /g, "_"))
+                )
+              )
+            );
+          }
+        });
+      }
     },
     {
       type: "list",
