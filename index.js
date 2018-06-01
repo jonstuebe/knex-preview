@@ -32,17 +32,16 @@ delete knexConfig.connection;
 const mockDb = require("mock-knex");
 const knex = require("knex")(knexConfig);
 mockDb.mock(knex);
-const migrationsPath = path.join(
-  cwd,
-  get(knexConfig, "migrations.directory", "./migrations")
-);
+const migrationsPath = get(knexConfig, "migrations.directory", "./migrations");
 const useTransactions = !get(
   knexConfig,
   "migrations.disableTransactions",
   false
 );
 
-const migrations = fs.readdirSync(migrationsPath);
+const migrations = fs
+  .readdirSync(migrationsPath)
+  .filter(file => file.match(/^[0-9]*?_\S*.[a-zA-Z]$/));
 let allQueries = [];
 
 knex.on("query", query => {

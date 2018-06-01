@@ -1,6 +1,6 @@
 {
   "name": "knex-preview",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A small cli tool to output sql from knex migrations",
   "main": "index.js",
   "author": {
@@ -37,7 +37,7 @@
     "sql-formatter": "^2.3.1"
   },
   "peerDependencies": {
-    "knex": "^0.13.0 || ^0.14.0"
+    "knex": "^0.11.0 || ^0.12.0 || ^0.13.0 || ^0.14.0"
   },
   "devDependencies": {
     "knex": "^0.14.6"

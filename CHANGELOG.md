@@ -4,7 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-## [0.2.1] - 2018-06-01
+## [0.2.3] - 2018-06-01
+
+### Changed
+
+* Fixed bug with path directory being duped in certain situtations.
+* Filtered out all files in the migrations directory that aren't knex migrations
+
+## [0.2.2] - 2018-06-01
 
 ### Changed
 
