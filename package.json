@@ -1,6 +1,6 @@
 {
   "name": "knex-preview",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "main": "index.js",
   "author": "Jon Stuebe <jstuebe@gmail.com>",
   "license": "MIT",
@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "bluebird": "^3.5.1",
+    "chalk": "^2.4.1",
+    "clipboardy": "^1.2.3",
     "commander": "^2.15.1",
     "dotenv": "^5.0.1",
     "inquirer": "^5.2.0",

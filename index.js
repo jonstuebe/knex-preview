@@ -7,6 +7,8 @@ const path = require("path");
 const inquirer = require("inquirer");
 const program = require("commander");
 const sqlFormatter = require("sql-formatter");
+const clipboardy = require("clipboardy");
+const chalk = require("chalk");
 const { get, isArray } = require("lodash");
 
 const cwd = process.cwd();
@@ -44,7 +46,11 @@ const migrations = fs.readdirSync(migrationsPath);
 let allQueries = [];
 
 knex.on("query", query => {
-  allQueries.push(sqlFormatter.format(query.sql));
+  if (query.sql.includes("create table")) {
+    allQueries.push(sqlFormatter.format(query.sql));
+  } else {
+    allQueries.push(query.sql);
+  }
 });
 
 inquirer
@@ -90,33 +96,60 @@ inquirer
           value: false
         }
       ]
+    },
+    {
+      type: "list",
+      name: "saveToClipboard",
+      message: "Save to clipboard?",
+      choices: [
+        {
+          name: "Yes",
+          value: true
+        },
+        {
+          name: "No",
+          value: false
+        }
+      ]
     }
   ])
-  .then(async ({ migrationSelected, migrationType, useSavepoint }) => {
-    let queries = require(`${migrationsPath}/${migrationSelected}`)[
-      migrationType
-    ](knex, Promise);
-    await queries;
+  .then(
+    async ({
+      migrationSelected,
+      migrationType,
+      useSavepoint,
+      saveToClipboard
+    }) => {
+      let queries = require(`${migrationsPath}/${migrationSelected}`)[
+        migrationType
+      ](knex, Promise);
+      await queries;
 
-    let sql = allQueries
-      .map(query => {
-        let sql = query.toString();
-        if (sql.substr(-1) !== ";") {
-          sql += ";";
-        }
-        return sql;
-      })
-      .join("\n\n");
+      let sql = allQueries
+        .map(query => {
+          let sql = query.toString();
+          if (sql.substr(-1) !== ";") {
+            sql += ";";
+          }
+          return sql;
+        })
+        .join("\n\n");
 
-    if (useSavepoint) {
-      sql = `SAVEPOINT knex_preview;\n\n${sql}\n\nROLLBACK TO SAVEPOINT knex_preview;`;
+      if (useSavepoint) {
+        sql = `SAVEPOINT knex_preview;\n\n${sql}\n\nROLLBACK TO SAVEPOINT knex_preview;`;
+      }
+
+      if (useTransactions) {
+        sql = `BEGIN;\n\n${sql}\n\nCOMMIT;`;
+      }
+
+      if (saveToClipboard) {
+        clipboardy.writeSync(sql);
+        console.log(chalk.green("Query copied to clipboard!"));
+      } else {
+        console.log("");
+        console.log(sql);
+        console.log("");
+      }
     }
-
-    if (useTransactions) {
-      sql = `BEGIN;\n\n${sql}\n\nCOMMIT;`;
-    }
-
-    console.log("");
-    console.log(sql);
-    console.log("");
-  });
+  );
