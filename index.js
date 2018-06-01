@@ -20,8 +20,8 @@ program
   .parse(process.argv);
 
 const knexConfigPath = program.knexConfig
-  ? path.join(cwd, program.knexConfig)
-  : path.join(cwd, "knexfile");
+  ? path.resolve(cwd, program.knexConfig)
+  : path.resolve(cwd, "knexfile");
 let knexConfig = require(knexConfigPath.toString());
 if (knexConfig.development) {
   knexConfig = knexConfig[process.env.NODE_ENV || "development"];
@@ -32,7 +32,11 @@ delete knexConfig.connection;
 const mockDb = require("mock-knex");
 const knex = require("knex")(knexConfig);
 mockDb.mock(knex);
-const migrationsPath = get(knexConfig, "migrations.directory", "./migrations");
+const migrationsPath = get(
+  knexConfig,
+  "migrations.directory",
+  path.resolve(cwd, "migrations")
+);
 const useTransactions = !get(
   knexConfig,
   "migrations.disableTransactions",

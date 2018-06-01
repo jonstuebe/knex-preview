@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.2.5] - 2018-06-01
+
+### Changed
+
+* Fixed folder path bug
+* Updated readme
+
 ## [0.2.4] - 2018-06-01
 
 ### Changed

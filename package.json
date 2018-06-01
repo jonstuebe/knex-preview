@@ -1,6 +1,6 @@
 {
   "name": "knex-preview",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "A small cli tool to output sql from knex migrations",
   "main": "index.js",
   "author": {

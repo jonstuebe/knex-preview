@@ -1,19 +1,25 @@
 # Knex Preview
 
+Small CLI utility that converts the knex query/schema builder method calls in migrations to standard sql. Has an interactive CLI that allows you to select which migration, specific the up or down migration, and whether or not to add a savepoint to the output. Transactions are added based on the knex settings inside of that project.
+
 ## Install
 
 ```shell
-npm i -g knex-preview
+npm i --save-dev knex-preview
 ```
 
 or
 
 ```shell
-yarn global add knex-preview
+yarn add --dev knex-preview
 ```
 
 ## Usage
 
-Small CLI utility that converts the knex query/schema builder method calls in migrations to standard sql. Has an interactive CLI that allows you to select which migration, specific the up or down migration, and whether or not to add a savepoint to the output. Transactions are added based on the knex settings inside of that project.
+```shell
+npx knex-preview
+```
+
+## Help
 
 See `knex-preview --help` for more details.
